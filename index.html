@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web Audio & Applications</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Web Audio Now!
+
+Best of Web - Paris, 5 Juin 2015 - 15h00
+
+Samuel Goldszmidt & Norbert Schnell (Ircam)
+
+???
+
+SG : Développeur Web
+
+NS : Chercheur, Designer son et interaction
+
+---
+
+# Plan
+
+
+1. Ircam
+2. Ircam → Web Audio
+3. Web Audio technologies et standards
+4. Ircam Web Audio librairies et framework
+5. Prochaines étapes et perspectives à venir
+
+---
+
+# Ircam
+
+### Institut de Recherche et de Coordination Acoustique/Musique
+
+<img src="media/img/ircam.jpg" height=200px />
+<img src="media/img/espro.jpg" height=200px />
+<img src="media/img/chambre.jpg" height=200px />
+
+Créé en 1977 par Pierre Boulez, associé au Centre Pompidou
+<br>
+Financement principal : Ministère de la Culture et de la Communication
+
+
+Un lieu qui réunit des **musiciens**, des **chercheurs**, des **ingénieurs**
+<br>
+dans le but de **renouveller l'expression musicale** contemporaine
+<br>
+à travers la **science** et la **technologie**
+<br>
+et en abordant la création musicale comme un objet de recherche singulier.
+
+3 départements : R&D, Création, Médiation
+
+---
+
+# Ircam → Web Audio
+
+**Audio** (musique) au cœur des problématiques Ircam ([département R&D](http://www.ircam.fr/equipes.html))
+<br>
+**Web** utilisé pour la dissémination des savoirs
+
+2 projets de recherche utilisant **technologies** et **standards** Web Audio :
+* [WAVE](http://wave.ircam.fr) (Web Audio Visualisation/Edition) 2012/2015
+* [CoSiMa](http://cosima.ircam.fr) (Collaborative Situated Media, N. Schnell) 2013/2016
+
+Organisation de la 1<sup>ère</sup> Web Audio Conference [WAC](http://wac.ircam.fr/program.html) Janvier 2015 avec Mozilla et l'Audio Working Group du W3C
+
+???
+Audio : 7 équipes de recherche : Acoustique instrumentale, Espaces acoustiques et cognitifs, Perception et design sonores, Analyse & synthèse des sons, Représentations musicales, Analyse des pratiques musicales, Interaction son musique mouvement
+
+Web : base de données de compositeurs, d'œuvres, d'articles scientifiques, et, des outils pour la musicologie numérique.
+
+
+---
+
+layout: true
+
+# Web Audio technologies et standards
+
+---
+
+---
+
+## Histoire courte
+
+* ~ 1995 : &amp;lt;bgsound&amp;gt; &amp;lt;embed&amp;gt; &amp;lt;applet&amp;gt; "l'équivalent &amp;lt;blink&amp;gt; pour le son"
+* ~ 1997 : Flash
+* ~ 2008 : HTML5 &amp;lt;audio&amp;gt;
+* ~ A partir de 2010 : Web Audio API ET liés au Web Audio : WebSocket API, WebRTC (getUserMedia), Web Midi API, MediaStream Recording, Audio output devices API, Geolocation API, Device Orientation et Device Motion API, Presentation API ...
+
+???
+
+* 1995 : &amp;lt;blink&amp;gt; midifile et protocoles propriétaires (RTP, RTSP)
+* 1997 : côté client avec le plugin et côté serveur avec FMS et octobre 2008 Sound API dans Flash pour faire du traitement audio, minimal
+* 2008 : HTML5 &amp;lt;audio&amp;gt;
+* 2010 : HTTP streaming (DASH), WebRTC et WebSockets pour l'échange de données, Wep Audio API (première implémentation Chrome 2011). Web Audio API disponible sur Edge
+
+20 ans après la première possibilité de lire un son dans le navigateur, les standards proposent un ensemble de fonctionnalités primitives pour créer des applications audio temps réel ou non sur le web. Même s'il y a encore des choses qui manquent et à améliorer.
+
+---
+
+## Web Audio API (1/3)
+
+* API JavaScript de haut-niveau permettant le traitement et la synthèse audio dans des applications web
+* Paradigme : un graphe de routage du signal audio construit à l'aide d'`AudioNodes`.
+* L'implémentation sous-jacente est en C/C++ mais le traitement directement en JavaScript est possible.
+
+
+???
+
+La balise audio (HTML5) permet le streaming et le playback audio simple dans les navigateurs récents sans avoir recours à Flash ou QuickTime.
+
+Mais ce n'est pas suffisant pour les jeux, les applications audio interactives (séquenceurs audios, plugin d'effets et synthétiseurs)
+
+... et tout ce que l'on peut imaginer comme application musicale dans un environment massivement multimédia, multi-utilisateurs !
+
+---
+
+## Web Audio API (2/3)
+
+* Lecture à l'échantillon sonore près
+* Intégration avec les balises &amp;lt;audio&amp;gt; et &amp;lt;video&amp;gt;, getUserMedia et WebRTC
+* Spatialisation du son
+* Moteur de convolution
+* Filtres, Synthèse par distorsion non linéaire (Waveshaper), Oscillateurs
+* Paramètres audios `AudioParam`
+* Analyses dans les domaines temporel et fréquenciel (pour la visualisation seulement à l'heure actuelle)
+
+
+---
+
+## Web Audio API (3/3)
+
+* `AudioContext`
+
+* `AudioNode`
+  * Sortie uniquement : `AudioBufferSourceNode`, `MediaElementAudioSourceNode`, `MediaStreamAudioSourceNode`, `OscillatorNode`
+  * Entrée uniquement : `AudioDestinationNode`, `MediaStreamAudioDestinationNode`
+  * Entrée & Sortie : `GainNode`, `DelayNode`, `BiquadFilterNode`, `DynamicsCompressorNode`, `WaveShaperNode`, `PannerNode`, `StereoPannerNode`, `ConvolverNode`, `AnalyserNode`, `ChannelSplitterNode`, `ChannelMergerNode`, `ScriptProcessorNode` <small>(obsolète)</small>, `AudioWorkerNode`
+
+* `AudioParam`
+
+
+???
+AudioContext contient
+* le graph du signal audio <small>(connections entre AudioNodes)</small>
+* les factory pour créer des AudioNodes <small>(GainNode, PannerNode ...)</small>
+* la destination <small>(la sortie audio)</small>
+* le currentTime <small>(utile pour ordonnancer les évènements)</small>
+* le decodeAudioData
+
+AudioParam
+* contrôle un aspect individuel du fonctionnement d'un AudioNode, comme le volume
+* peut être a-rate <small>valeur pour chaque échantillon d'un block</small> ou k-rate <small>valeur utilisée pour l'ensemble du block</small>
+* Méthodes: setValueAtTime(), linearRampToValueAtTime(), exponentialRampToValueAtTime(), setTargetAtTime(), setValueCurveAtTime()
+* peut être connecté à un AudioNode: AudioNode.connect(AudioParam) <small>(en plus de AudioNode.connect(AudioNode))</small>, usage type les LFO
+
+
+---
+
+
+## Exemples d'applications
+
+[Vocoder](https://webaudiodemos.appspot.com/Vocoder/index.html)
+
+[Midi-synth](http://webaudiodemos.appspot.com/midi-synth/index.html) (Web MIDI API)
+
+---
+
+## *Web Audio API vs. Native: Closing the Gap*
+
+Paul Adenot Keynote WAC2015
+
+* Le code natif a de bonnes **performances** et est **flexible**
+* Le code écrit avec la Web Audio API se **distribue facilement**, est **sûr** et est très **facile**.
+
+Propositions simples pour améliorer les performances Web Audio API :
+
+
+* AudioWorker
+* asm.js
+* SIMD.js
+
+Pour les mauvaises nouvelles (denormals, lock-free/wait-free, context-switch), [regardez la vidéo](http://medias.ircam.fr/x2af2f6).
+
+???
+browserify
+grâce au bac à sable de la plateforme web
+
+* AudioWorker : plus de frontière de thread à traverser comme les traitements audio et JavaScript seront sur le même thread
+* asm.js, langage intermédiaire constituant un sous-ensemble du langage Javascript, qui ne produit pas d'objet temporaire à passer au ramasse miette.
+* SIMD.js SIMD (Single Instruction Multiple Data) qui permet de faire des opérations sur des éléments multiples ensemble, et qui a des répercutions interessantes en terme de performance sur le traitement de buffer audio.
+
+* Pour les mauvaises nouvelles (denormals, lock-free/wait-free, context-switch), [regardez la vidéo](http://medias.ircam.fr/x2af2f6).
+
+---
+
+
+layout: true
+
+# Ircam Web Audio librairies et framework
+
+---
+
+---
+
+## waves.js
+
+Une librairie pour faciliter le développement d'applications Web Audio (WAVE project)
+
+
+* UI : Affichage des représentations temporelles
+* Audio : Moteur audio et ordonnanceur
+* LFO : Chaîne de traitement audio
+
+Documentation: [wavesjs.github.io](http://wavesjs.github.io)
+
+---
+
+## waves.js - UI
+
+Présentation: [WAC waves.ui](http://ircam-rnd.github.io/wac-slides) - Chrome uniquement
+
+* `Waveform` - Affichage
+* `Markers` - Affichage et édition
+* `Segments` - Affichage et édition
+* `BreakPointFunctions` (BPF) - Affichage et édition
+* `Cursor`
+* `Zoom`/`Move`
+
+### Exemples d’applications
+
+[Blocs Gigognes Philippe Leroux](http://wave.ircam.fr/demo/projects/blocs-gigognes/), [Opus 27 Anton Webern](http://wave.ircam.fr/demo/projects/webern-opus-27/), [Luna Park Georges Aperghis](http://wave.ircam.fr/demo/luna-park/), [Bachothèque J.-S Bach](http://wave.ircam.fr/demo/projects/bachotheque/)
+
+---
+
+## waves.js - Audio
+
+* Moteurs, jouent l'audio : `GranularEngine`, `Metronome`, `PlayerEngine`, `SegmentEngine`
+* Maîtres, contrôlent les moteurs :
+  * `PlayControl`, *start - pause - stop - seek - speed ...* pour contrôler la lecture des moteurs audio
+  * `Scheduler`, ordonnance/commande la lecture des moteurs audio
+  * `Transport`, synchronise/coordonne la lecture de moteurs audio
+
+### Exemples d’applications
+
+[waves.audio](http://wavesjs.github.io/audio/)
+
+???
+Moteurs : créent un buffer et le jouent
+
+---
+
+## waves.js - LFO <small>(en développement)</small>
+
+<img src="./media/img/lfo.png" width=100%/>
+
+LFO permet :
+* d'analyser et manipuler les données à travers une chaîne de traitement uniforme
+* d'encapsuler les algorithmes usuels avec une interface unifiée qui peut être partagée et réutilisée
+
+
+???
+LFO est une librairie qui propose une API qui formalise le traitement et l'analyse arbitraire de flux de données (ex. données audio, vidéo, capteurs). En normalisant le format des stream dans son entrée et sa sortie,
+
+
+---
+
+## Collective-Soundworks
+Un framework pour la création d'applications audio et multimédia collaboratives (CoSiMa project)
+
+### Exemples d’applications
+
+---
+
+
+layout: true
+class: center, middle
+
+# Fin
+
+---
+
+
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+    </script>
+  </body>
+</html>
