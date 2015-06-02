@@ -73,9 +73,9 @@ et en abordant la création musicale comme un objet de recherche singulier.
 
 # Ircam → Web Audio
 
-**Audio** (musique) au cœur des problématiques Ircam ([département R&D](http://www.ircam.fr/equipes.html))
+**Audio** et musique au cœur des problématiques
 <br>
-**Web** utilisé pour la dissémination des savoirs
+**Web** utilisé pour la dissémination
 
 2 projets de recherche utilisant **technologies** et **standards** Web Audio :
 * [WAVE](http://wave.ircam.fr) (Web Audio Visualisation/Edition) 2012/2015
@@ -84,9 +84,30 @@ et en abordant la création musicale comme un objet de recherche singulier.
 Organisation de la 1<sup>ère</sup> Web Audio Conference [WAC](http://wac.ircam.fr/program.html) Janvier 2015 avec Mozilla et l'Audio Working Group du W3C
 
 ???
-Audio : 7 équipes de recherche : Acoustique instrumentale, Espaces acoustiques et cognitifs, Perception et design sonores, Analyse & synthèse des sons, Représentations musicales, Analyse des pratiques musicales, Interaction son musique mouvement
+Audio et Musique, au cœur des problématiques Ircam : 7 équipes de recherche : Acoustique instrumentale, Espaces acoustiques et cognitifs, Perception et design sonores, Analyse & synthèse des sons, Représentations musicales, Analyse des pratiques musicales, Interaction son musique mouvement
 
-Web : base de données de compositeurs, d'œuvres, d'articles scientifiques, et, des outils pour la musicologie numérique.
+Web : dissémination des savoir scientifiques, des base de données de compositeurs, d'œuvres, et, des outils pour la musicologie numérique.
+Développement d'outils d'écoute actives (projet Ecoutes signées)
+Comment les compositeurs, interprètes ... écoutent.
+Exemple prototype communication Flash <=> Max
+
+Et avec Norbert on a décidé de réunir les deux.
+
+* "Web Audio" véritablement émergent pour des applications exigentes
+* Accessible sur (quasi) tous les périphériques connectés de dernière génération
+
+#### Pourquoi transférer des savoirs, des technologies, des algorithmes de MAO et d'interactions de l'Ircam vers la plateforme Web ?
+
+* 3 000 000 000 d'utilisateurs - s'adresser au plus grand nombre
+* *Browser As An OS*, pas d'installation - "TTM" minimal
+* Plateforme partagée, multi-utilisateurs, temps réel et multimédia
+* Nouveaux champs d'expérimentation et de recherche
+
+*Les* technologies Web Audio sont disponibles et accessible à tous
+
+ex. Word → Google Doc
+
+et retours utilisateurs
 
 
 ---
@@ -122,6 +143,8 @@ layout: true
 * API JavaScript de haut-niveau permettant le traitement et la synthèse audio dans des applications web
 * Paradigme : un graphe de routage du signal audio construit à l'aide d'`AudioNodes`.
 * L'implémentation sous-jacente est en C/C++ mais le traitement directement en JavaScript est possible.
+
+<img src="./media/img/webaudio-js.png" height="200px" />
 
 
 ???
@@ -224,10 +247,10 @@ layout: true
 
 ## waves.js
 
-Une librairie pour faciliter le développement d'applications Web Audio (WAVE project)
+Une librairie pour faciliter le développement d'applications Web Audio (projet WAVE)
 
 
-* UI : Affichage des représentations temporelles
+* UI : Affichage et édition de données temporelles
 * Audio : Moteur audio et ordonnanceur
 * LFO : Chaîne de traitement audio
 
@@ -237,18 +260,19 @@ Documentation: [wavesjs.github.io](http://wavesjs.github.io)
 
 ## waves.js - UI
 
-Présentation: [WAC waves.ui](http://ircam-rnd.github.io/wac-slides) - Chrome uniquement
+Affichage et édition de données temporelles : `Waveform`, `Markers`, `Segments`, `BreakPointFunctions` (BPF) au sein d'une `Timeline` avec des possiblités de `Zoom`/`Move` et ajout de `Cursor`
 
-* `Waveform` - Affichage
-* `Markers` - Affichage et édition
-* `Segments` - Affichage et édition
-* `BreakPointFunctions` (BPF) - Affichage et édition
-* `Cursor`
-* `Zoom`/`Move`
 
-### Exemples d’applications
+### Exemple d'utilisation
 
-[Blocs Gigognes Philippe Leroux](http://wave.ircam.fr/demo/projects/blocs-gigognes/), [Opus 27 Anton Webern](http://wave.ircam.fr/demo/projects/webern-opus-27/), [Luna Park Georges Aperghis](http://wave.ircam.fr/demo/luna-park/), [Bachothèque J.-S Bach](http://wave.ircam.fr/demo/projects/bachotheque/)
+[waves.js UI](http://wavesjs.github.io/examples/01-ui-what-you-can-do-with-it.html)
+
+???
+
+Avec HTML5, de nouvelles API et de nouveau type d'input (color, range, number)
+Mais rien pour pour waveform et les timeline.
+
+Modulaire, commandé par les données, SVG
 
 ---
 
@@ -260,9 +284,9 @@ Présentation: [WAC waves.ui](http://ircam-rnd.github.io/wac-slides) - Chrome un
   * `Scheduler`, ordonnance/commande la lecture des moteurs audio
   * `Transport`, synchronise/coordonne la lecture de moteurs audio
 
-### Exemples d’applications
+### Exemple d'utilisation
 
-[waves.audio](http://wavesjs.github.io/audio/)
+[waves.js Audio](http://wavesjs.github.io/audio/)
 
 ???
 Moteurs : créent un buffer et le jouent
@@ -281,13 +305,21 @@ LFO permet :
 ???
 LFO est une librairie qui propose une API qui formalise le traitement et l'analyse arbitraire de flux de données (ex. données audio, vidéo, capteurs). En normalisant le format des stream dans son entrée et sa sortie,
 
+---
+
+## waves.js - Exemples d’applications
+
+* ["Blocs Gigognes", analyse du 4e mouvement de *Voi(rex)* de P. Leroux](http://wave.ircam.fr/demo/projects/blocs-gigognes/)
+* [Analyse *Opus 27* de Anton Webern par E. Ducreux](http://wave.ircam.fr/demo/projects/webern-opus-27/)
+* [Analyse *Luna Park* de Georges Aperghis par J.-F Trubert](http://wave.ircam.fr/demo/luna-park/)
+* ["Bachothèque" J.-S Bach](http://wave.ircam.fr/demo/projects/bachotheque/)
+
 
 ---
 
 ## Collective-Soundworks
-Un framework pour la création d'applications audio et multimédia collaboratives (CoSiMa project)
+Un framework pour la création d'applications audio et multimédia collaboratives (projet CoSiMa)
 
-### Exemples d’applications
 
 ---
 
@@ -306,6 +338,7 @@ class: center, middle
     </script>
     <script>
       var slideshow = remark.create();
+
     </script>
   </body>
 </html>
