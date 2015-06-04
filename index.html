@@ -140,7 +140,7 @@ layout: true
 <br>
 ~ 2008 : HTML5 &amp;lt;audio&amp;gt;
 <br>
-~ A partir de 2010 : Web Audio API ET liés au Web Audio : WebSocket API, WebRTC (getUserMedia), Web Midi API, MediaStream Recording, Audio output devices API, Geolocation API, Device Orientation et Device Motion API, Presentation API ...
+~ Depuis 2010 : Web Audio API **et liés au Web Audio** : WebSocket API, WebRTC (getUserMedia), HTTP streaming (DASH), Web Midi API, MediaStream Recording, Audio output devices API, Geolocation API, Device Orientation et Device Motion API, Presentation API ...
 
 ???
 
@@ -148,6 +148,8 @@ layout: true
 * 1997 : côté client avec le plugin et côté serveur avec FMS et octobre 2008 Sound API dans Flash pour faire du traitement audio, minimal
 * 2008 : HTML5 &amp;lt;audio&amp;gt;
 * 2010 : HTTP streaming (DASH), WebRTC et WebSockets pour l'échange de données, Wep Audio API (première implémentation Chrome 2011). Web Audio API disponible sur Edge
+
+Web Audio !== Web Audio API
 
 20 ans après la première possibilité de lire un son dans le navigateur, les standards proposent un ensemble de fonctionnalités primitives pour créer des applications audio temps réel ou non sur le web. Même s'il y a encore des choses qui manquent et à améliorer.
 
@@ -169,7 +171,7 @@ La balise audio (HTML5) permet le streaming et le playback audio simple dans les
 
 Mais ce n'est pas suffisant pour les jeux, les applications audio interactives (séquenceurs audios, plugin d'effets et synthétiseurs)
 
-... et tout ce que l'on peut imaginer comme application musicale dans un environment massivement multimédia, multi-utilisateurs !
+... et tout ce que l'on peut imaginer comme application musicale dans un environment massivement multimédia, multi-utilisateurs et collaboratif !
 
 ---
 
@@ -315,7 +317,7 @@ function playNote(freq, time){
 
 ## *Web Audio API vs. Native: Closing the Gap*
 
-Paul Adenot - Keynote WAC2015
+Paul Adenot (Mozilla) - Keynote WAC2015
 
 * Le code natif a de bonnes **performances** et est **flexible**
 * Le code écrit avec la Web Audio API se **distribue facilement**, est **sûr** et est très **facile**.
@@ -361,6 +363,10 @@ Une librairie pour faciliter le développement d'applications Web Audio (projet 
 
 Documentation: [wavesjs.github.io](http://wavesjs.github.io)
 
+???
+
+Aborde les questions que la Web Audio API et d'autres standards ne résolvent pas (il ne s'agit pas d'un wrapper d'API).
+
 ---
 
 ## waves.js - UI
@@ -373,6 +379,7 @@ Affichage et édition de données temporelles : `Waveform`, `Markers`, `Segments
 
 ???
 
+ex. HTML5 input type, pas d'affichage de waveform
 Avec HTML5, de nouvelles API et de nouveau type d'input (color, range, number)
 Mais rien pour pour waveform et les timeline.
 
@@ -393,7 +400,15 @@ Modulaire, commandé par les données, SVG
 [waves.js Audio](http://wavesjs.github.io/audio/)
 
 ???
+
+ex. Web Audio API : l'ordonnancement des évènements pour des applications
+ audio interactives (notamment la lecture audio) peut être très complexe à gérer.
+
 Moteurs : créent un buffer et le jouent
+
+1. Granular
+2. Segment
+3. Transport
 
 ---
 
