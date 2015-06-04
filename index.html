@@ -14,6 +14,7 @@
         font-weight: normal;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      code.remark-code { font-size: 0.7em;}
     </style>
   </head>
   <body>
@@ -88,7 +89,7 @@ et en abordant la création musicale comme un objet de recherche singulier.
 <img src='./media/img/iMubu.png' height=200px/>
 <img src='./media/img/medias.ircam.fr.png' height=200px/>
 
-2 projets de recherche utilisant **technologies** et **standards** Web Audio :
+2 projets ANR de recherche utilisant **technologies** et **standards** Web Audio :
 * [WAVE](http://wave.ircam.fr) (Web Audio Visualisation/Edition) 2012/2015
 * [CoSiMa](http://cosima.ircam.fr) (Collaborative Situated Media, N. Schnell) 2013/2016
 
@@ -218,6 +219,86 @@ AudioParam
 
 
 ---
+<div>
+<button class="keyboard" data-frequency="440">A</button>
+<button class="keyboard" data-frequency="466.16">A#</button>
+<button class="keyboard" data-frequency="493.88">B</button>
+<button class="keyboard" data-frequency="523.25">C</button>
+<button class="keyboard" data-frequency="554.37">C#</button>
+<button class="keyboard" data-frequency="587.33">D</button>
+<button class="keyboard" data-frequency="622.25">D#</button>
+<button class="keyboard" data-frequency="659.25">E</button>
+<button class="keyboard" data-frequency="698.46">F</button>
+<button class="keyboard" data-frequency="739.99">F#</button>
+<button class="keyboard" data-frequency="783.99">G</button>
+<button class="keyboard" data-frequency="830.61">G#</button>
+</div>
+<div>
+<div style="float:left">
+  <label><small>VCO Type</small></label>
+  <br>
+  <select class="vocType">
+    <option>sine</option>
+    <option>square</option>
+    <option>sawtooth</option>
+    <option>triangle</option>
+  </select>
+</div>
+<div style="float:left">
+  <label><small>VCA Attack</small></label>
+  <br>
+  <input type="range" class="attack" min="0" max="1" step="0.001" value="0.025" />
+</div>
+<div style="float:left">
+  <label><small>VCA Release</small></label>
+  <br>
+  <input type="range" class="release" min="0.001" max="1" step="0.001" value="0.08" />
+</div>
+<div style="float:left">
+  <label><small>Filter Frequency</small></label>
+  <br>
+  <input type="range" class="filterFreq" min="0" max="1" step="0.01" value="1" />
+</div>
+<div style="float:left">
+  <label><small>Filter Q</small></label>
+  <br>
+  <input type="range" class="filterQ" min="0" max="1" step="0.01" value="0" />
+</div>
+</div>
+<div style="clear:both" ></div>
+
+```javascript
+/* AudioContext */
+var audioContext = new window.AudioContext();
+
+/* VCO - Voltage Controlled Oscillator */
+var vco = audioContext.createOscillator();
+vco.type = 'sine';
+vco.frequency.value = 0;
+vco.start(0);
+
+/* VCA - Voltage Controlled Amplifier */
+var vca = audioContext.createGain();
+vca.gain.value = 0;
+
+/* Filter */
+var filter = audioContext.createBiquadFilter();
+
+/* Connections */
+vco.connect(vca);
+vca.connect(filter);
+filter.connect(audioContext.destination);
+
+function playNote(freq, time){
+    vca.gain.cancelScheduledValues(time);
+    vca.gain.setValueAtTime(0, time);
+    vca.gain.linearRampToValueAtTime(1, time + attackTime);
+    vca.gain.linearRampToValueAtTime(0, time + attackTime + releaseTime);
+    vco.frequency.value = freq;
+}
+```
+
+---
 
 
 ## Exemples d'applications
@@ -301,7 +382,7 @@ Modulaire, commandé par les données, SVG
 
 ## waves.js - Audio
 
-* Moteurs, jouent l'audio : `GranularEngine`, `Metronome`, `PlayerEngine`, `SegmentEngine`
+* Moteurs, jouent l'audio : `PlayerEngine`, `GranularEngine`, `SegmentEngine`
 * Maîtres, contrôlent les moteurs :
   * `PlayControl`, *start - pause - stop - seek - speed ...* pour contrôler la lecture des moteurs audio
   * `Scheduler`, ordonnance/commande la lecture des moteurs audio
@@ -324,6 +405,7 @@ LFO permet :
 * d'analyser et manipuler les données à travers une chaîne de traitement uniforme
 * d'encapsuler les algorithmes usuels avec une interface unifiée qui peut être partagée et réutilisée
 
+Applications : analyse/descripteurs/segmentation audio, analyse de données de captation de mouvement
 
 ???
 LFO est une librairie qui propose une API qui formalise le traitement et l'analyse arbitraire de flux de données (ex. données audio, vidéo, capteurs). En normalisant le format des stream dans son entrée et sa sortie,
@@ -357,6 +439,7 @@ LFO est une librairie qui propose une API qui formalise le traitement et l'analy
 ## Collective-Soundworks
 Un framework pour la création d'applications audio et multimédia collaboratives (projet CoSiMa)
 
+[Soundworks](http://github.com/collective-soundworks/soundworks)
 
 ---
 
@@ -377,5 +460,6 @@ class: center, middle
       var slideshow = remark.create();
 
     </script>
+    <script src="./media/js/basic-synth.js"></script>
   </body>
 </html>
