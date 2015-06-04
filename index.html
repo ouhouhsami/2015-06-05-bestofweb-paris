@@ -88,7 +88,9 @@ dans le but de **renouveller l'expression musicale** contemporaine
 Un lieu qui réunit des **musiciens**, des **chercheurs**, des **ingénieurs**
 dans le but de **renouveller l'expression musicale** contemporaine
 à travers la **science** et la **technologie**
-et en abordant la création musicale comme un objet de recherche singulier.
+
+
+<!--et en abordant la création musicale comme un objet de recherche singulier.-->
 
 ---
 
@@ -111,26 +113,21 @@ Audio et Musique, au cœur des problématiques Ircam : 7 équipes de recherche :
 Web : dissémination des savoir scientifiques, des base de données de compositeurs, d'œuvres, et, des outils pour la musicologie numérique.
 Développement d'outils d'écoute actives (projet Ecoutes signées)
 Comment les compositeurs, interprètes ... écoutent.
-Exemple prototype communication Flash <=> Max
 
 Et avec Norbert on a décidé de réunir les deux.
 
-* "Web Audio" véritablement émergent pour des applications exigentes
-* Accessible sur (quasi) tous les périphériques connectés de dernière génération
+Au moment ou le "Web Audio" émergent véritablement pour des applications exigentes
 
-#### Pourquoi transférer des savoirs, des technologies, des algorithmes de MAO et d'interactions de l'Ircam vers la plateforme Web ?
+Et est accessible sur (quasi) tous les périphériques connectés de dernière génération
+
+#### Pourquoi transférer des savoirs, des technologies, des algorithmes d'informatique musicale de l'Ircam vers la plateforme Web ?
 
 * 3 000 000 000 d'utilisateurs - s'adresser au plus grand nombre
 * *Browser As An OS*, pas d'installation - "TTM" minimal
 * Plateforme partagée, multi-utilisateurs, temps réel et multimédia
-* Nouveaux champs d'expérimentation et de recherche
-
-*Les* technologies Web Audio sont disponibles et accessible à tous
+* Nouveaux champs d'expérimentation et de recherche et retours utilisateurs
 
 ex. Word → Google Doc
-
-et retours utilisateurs
-
 
 ---
 
@@ -176,7 +173,7 @@ Web Audio !== Web Audio API
 
 ???
 
-La balise audio (HTML5) permet le streaming et le playback audio simple dans les navigateurs récents sans avoir recours à Flash ou QuickTime.
+La balise audio permet le streaming et le playback audio simple sans avoir recours à Flash ou QuickTime.
 
 Mais ce n'est pas suffisant pour les jeux, les applications audio interactives (séquenceurs audios, plugin d'effets et synthétiseurs)
 
@@ -222,8 +219,12 @@ AudioContext contient
 * le currentTime <small>(utile pour ordonnancer les évènements)</small>
 * le decodeAudioData
 
+Des AudioNode
+* qui vont composer votre graph audio.
+* Par exemple l'OscillatorNode qui peut jouer un son sinusoïdal ou encore le GainNode qui permet d'ajuster le volume.
+
 AudioParam
-* contrôle un aspect individuel du fonctionnement d'un AudioNode, comme le volume
+* contrôle un aspect individuel du fonctionnement d'un AudioNode, comme la fréquence d'un oscillateur par exemple
 * peut être a-rate <small>valeur pour chaque échantillon d'un block</small> ou k-rate <small>valeur utilisée pour l'ensemble du block</small>
 * Méthodes: setValueAtTime(), linearRampToValueAtTime(), exponentialRampToValueAtTime(), setTargetAtTime(), setValueCurveAtTime()
 * peut être connecté à un AudioNode: AudioNode.connect(AudioParam) <small>(en plus de AudioNode.connect(AudioNode))</small>, usage type les LFO
@@ -316,7 +317,7 @@ function playNote(freq, time){
 4. Création d'un filtre
 5. On connect l'oscillateur à l'enveloppe de volume puis l'enveloppe de volume au filtre
 
-On utilise la fonction 'playNote' pour déclencher un son, c'est à régler la fréquence de la note que l'on veut jouer et déclencher une enveloppe de volume (durée d'attaque et de release)
+On utilise la fonction 'playNote' pour déclencher un son, c'est à dire régler la fréquence de l'oscillateur sur la note que l'on veut jouer et déclencher une enveloppe de volume (durée d'attaque et de release)
 
 
 ---
@@ -331,7 +332,9 @@ On utilise la fonction 'playNote' pour déclencher un son, c'est à régler la f
 * Vocoder : getUserMedia + Web Audio API
 * Synthétiseur : Web Midi API + Web Audio API
 
-[Recreating the sounds of the BBC Radiophonic](http://webaudio.prototyping.bbc.co.uk/)
+Explications interactives : [Recreating the sounds of the BBC Radiophonic](http://webaudio.prototyping.bbc.co.uk/)
+
+... et inscrivez-vous à la [Web Audio Weekly](http://blog.chrislowis.co.uk/waw.html) !
 
 ---
 
@@ -353,6 +356,7 @@ Pour les mauvaises nouvelles (denormals, lock-free/wait-free, context-switch), [
 
 ???
 browserify
+
 grâce au bac à sable de la plateforme web
 
 * AudioWorker : plus de frontière de thread à traverser comme les traitements audio et JavaScript seront sur le même thread
@@ -399,8 +403,8 @@ Affichage et édition de données temporelles : `Waveform`, `Markers`, `Segments
 
 ???
 
-ex. HTML5 input type, pas d'affichage de waveform
 Avec HTML5, de nouvelles API et de nouveau type d'input (color, range, number)
+
 Mais rien pour pour waveform et les timeline.
 
 Modulaire, commandé par les données, SVG
@@ -475,17 +479,6 @@ LFO est une librairie qui propose une API qui formalise le traitement et l'analy
 Un framework pour la création d'applications audio et multimédia collaboratives (projet CoSiMa)
 
 [Soundworks](http://github.com/collective-soundworks/soundworks)
-
----
-
-
-layout: true
-class: center, middle
-
-# Fin
-
----
-
 
 
     </textarea>
