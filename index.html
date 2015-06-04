@@ -24,17 +24,28 @@ class: center, middle
 
 # Web Audio Now!
 
-Best of Web - Paris, 5 Juin 2015 - 15h00
+**Best of Web - Paris, 5 Juin 2015**
 
-Samuel Goldszmidt ([@ouhouhsami](https://twitter.com/ouhouhsami)) & Norbert Schnell ([@norbertschnell](https://twitter.com/norbertschnell)) - Ircam
+<br>
+Samuel Goldszmidt ([@ouhouhsami](https://twitter.com/ouhouhsami)) & Norbert Schnell ([@norbertschnell](https://twitter.com/norbertschnell)) <br>Ircam
+
+
+
+<br>
+<br>
+<br>
+<br>
+<div style="text-align: right">
+<small>
+Présentation en ligne : ouhouhsami.github.io/2015-06-05-bestofweb-paris
+</small>
+</div>
 
 ???
 
 SG : Développeur Web
 
 NS : Chercheur, Designer son et interaction
-
----
 
 # Plan
 
@@ -45,11 +56,10 @@ NS : Chercheur, Designer son et interaction
 
 ---
 
+
 layout: true
 
 # Ircam → Web Audio
-
----
 
 ---
 
@@ -128,7 +138,6 @@ layout: true
 
 # Web Audio technologies, standards et faits
 
----
 
 ---
 
@@ -292,13 +301,23 @@ vca.connect(filter);
 filter.connect(audioContext.destination);
 
 function playNote(freq, time){
+    vco.frequency.value = freq;
     vca.gain.cancelScheduledValues(time);
     vca.gain.setValueAtTime(0, time);
     vca.gain.linearRampToValueAtTime(1, time + attackTime);
     vca.gain.linearRampToValueAtTime(0, time + attackTime + releaseTime);
-    vco.frequency.value = freq;
 }
 ```
+
+???
+1. Création de l'audiocontext, qui contiendra notre graph audio
+2. Création d'un oscillateur
+3. Création de l'enveloppe de volume
+4. Création d'un filtre
+5. On connect l'oscillateur à l'enveloppe de volume puis l'enveloppe de volume au filtre
+
+On utilise la fonction 'playNote' pour déclencher un son, c'est à régler la fréquence de la note que l'on veut jouer et déclencher une enveloppe de volume (durée d'attaque et de release)
+
 
 ---
 
@@ -312,6 +331,7 @@ function playNote(freq, time){
 * Vocoder : getUserMedia + Web Audio API
 * Synthétiseur : Web Midi API + Web Audio API
 
+[Recreating the sounds of the BBC Radiophonic](http://webaudio.prototyping.bbc.co.uk/)
 
 ---
 
@@ -341,16 +361,17 @@ grâce au bac à sable de la plateforme web
 
 * Pour les mauvaises nouvelles (denormals, lock-free/wait-free, context-switch), [regardez la vidéo](http://medias.ircam.fr/x2af2f6).
 
+=> Avec ces optimisation, le code Web Audio Api est 50% plus long que du code natif.
+
 ---
 
 
 layout: true
 
-# Ircam Web Audio librairies et framework
+# Ircam Web Audio librairies, framework, apps
 
 ---
 
----
 
 ## waves.js
 
@@ -369,13 +390,12 @@ Aborde les questions que la Web Audio API et d'autres standards ne résolvent pa
 
 ---
 
-## waves.js - UI
+## [waves.js - UI](http://wavesjs.github.io/examples/01-ui-what-you-can-do-with-it.html)
 
 Affichage et édition de données temporelles : `Waveform`, `Markers`, `Segments`, `BreakPointFunctions` (BPF) au sein d'une `Timeline` avec des possiblités de `Zoom`/`Move` et ajout de `Cursor`
 
 <img src="./media/img/waves.ui.png" height="140px" />
 
-[waves.js UI](http://wavesjs.github.io/examples/01-ui-what-you-can-do-with-it.html)
 
 ???
 
@@ -387,7 +407,7 @@ Modulaire, commandé par les données, SVG
 
 ---
 
-## waves.js - Audio
+## [waves.js - Audio](http://wavesjs.github.io/audio/)
 
 * Moteurs, jouent l'audio : `PlayerEngine`, `GranularEngine`, `SegmentEngine`
 * Maîtres, contrôlent les moteurs :
@@ -397,7 +417,8 @@ Modulaire, commandé par les données, SVG
 
 <img src="./media/img/waves.audio.png" height="140px" />
 
-[waves.js Audio](http://wavesjs.github.io/audio/)
+* [Mini Personal JS](http://ouhouhsami.github.io/personal-mini-js/)
+* [WinDAWs](http://ouhouhsami.github.io/windaws/)
 
 ???
 
@@ -410,8 +431,8 @@ Moteurs : créent un buffer et le jouent
 2. Segment
 3. Transport
 
----
 
+Slide Waves.js LFO abandonnée
 ## waves.js - LFO <small>(en développement)</small>
 
 <img src="./media/img/lfo.png" height=140px/>
@@ -422,7 +443,6 @@ LFO permet :
 
 Applications : analyse/descripteurs/segmentation audio, analyse de données de captation de mouvement
 
-???
 LFO est une librairie qui propose une API qui formalise le traitement et l'analyse arbitraire de flux de données (ex. données audio, vidéo, capteurs). En normalisant le format des stream dans son entrée et sa sortie,
 
 ---
